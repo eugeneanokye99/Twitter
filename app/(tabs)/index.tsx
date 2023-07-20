@@ -3,7 +3,6 @@ import tweets from '../../assets/data/tweets';
 import Tweet from '../../components/Tweets';
 import { View } from '../../components/Themed';
 
-const tweet = tweets;
 
 export default function TabOneScreen() {
   return (
