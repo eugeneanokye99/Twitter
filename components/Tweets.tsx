@@ -1,6 +1,22 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import { TweetType } from "../type";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, EvilIcons } from "@expo/vector-icons";
+
+type IconButtonProps = {
+  icon: React.ComponentProps <typeof EvilIcons>['name'];
+  text?: string | number;
+}
+
+const IconButton = ({icon, text}: IconButtonProps) => {
+  return(
+    <View style={{flexDirection: 'row', alignItems: 'center',}}>
+    {/* ICON */}
+    <EvilIcons name={icon} size={24} color="gray" />
+    {/* NUMBER */}
+    <Text style={styles.number}>{text}</Text>
+  </View>
+  )
+}
 
 type TweetProps = {
   tweet: TweetType;
@@ -27,6 +43,15 @@ const Tweet = ({ tweet }: TweetProps) => {
         {tweet.image && (
           <Image source={{ uri: tweet.image }} style={styles.image} />
         )}
+
+        <View style={styles.footer}>
+         <IconButton icon="comment" text={tweet.numberOfComments} />
+         <IconButton icon="retweet" text={tweet.numberOfRetweets} />
+          <IconButton icon="heart" text={tweet.numberOfLikes} />
+          {tweet.impressions && <IconButton icon="chart" text={tweet.impressions} />}
+          <IconButton icon="share-apple"/>
+         
+        </View>
       </View>
     </View>
   );
@@ -65,6 +90,15 @@ const styles = StyleSheet.create({
     aspectRatio: 16 / 9,
     marginTop: 10,
     borderRadius: 15,
+  },
+  footer: {
+  flexDirection: 'row',
+  marginVertical: 5,
+  justifyContent: 'space-between',
+  },
+  number: {
+    fontSize: 12,
+    color: 'gray',
   },
 });
 
